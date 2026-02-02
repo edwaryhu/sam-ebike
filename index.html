@@ -610,30 +610,30 @@
 /* Responsive - Mobile */
 @media (max-width: 900px) {
   .cargo-pixi-section {
-    padding: 40px 0;
+    padding: 20px 0 40px 0;
   }
   .cargo-pixi-header {
-    padding-top: 30px;
-    margin-bottom: 20px;
+    padding-top: 20px;
+    margin-bottom: 0;
   }
   .cargo-pixi-title {
-    font-size: 28px;
+    font-size: 24px;
     letter-spacing: 4px;
   }
   .cargo-pixi-subtitle {
-    font-size: 12px;
+    font-size: 11px;
+    margin-bottom: 10px;
   }
   .cargo-itsimple {
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
-    min-height: 300px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    padding: 20px 0 40px 0 !important;
+    min-height: auto !important;
+    display: block !important;
+    padding: 0 !important;
     position: relative !important;
   }
+  /* Bike canvas - large, full width */
   #pixi-canvas {
     position: relative !important;
     left: auto !important;
@@ -641,19 +641,26 @@
     right: auto !important;
     bottom: auto !important;
     transform: none !important;
-    width: 95% !important;
+    width: 100% !important;
     max-width: 100% !important;
-    min-height: 150px !important;
-    margin: 0 auto 20px auto !important;
-    order: 1;
+    min-height: 200px !important;
+    margin: 0 !important;
     display: block !important;
     overflow: hidden !important;
     z-index: 1 !important;
   }
   #pixi-canvas canvas {
-    transform-origin: top left !important;
+    transform-origin: top center !important;
     display: block !important;
     position: relative !important;
+  }
+  /* Controls wrapper - 2 column grid */
+  .cargo-itsimple .mobile-controls-wrapper {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0 20px !important;
+    padding: 20px !important;
+    width: 100% !important;
   }
   .cargo-itsimple .left-body,
   .cargo-itsimple .right-body {
@@ -661,68 +668,85 @@
     left: auto !important;
     right: auto !important;
     top: auto !important;
-    width: 90% !important;
-    max-width: 400px !important;
-    margin: 0 auto 20px auto !important;
-    padding: 20px !important;
-    background: rgba(255,255,255,0.5) !important;
-    border-radius: 12px !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border-radius: 0 !important;
     display: block !important;
   }
   .cargo-itsimple .left-body {
-    order: 2 !important;
+    order: unset !important;
   }
   .cargo-itsimple .right-body {
-    order: 3 !important;
+    order: unset !important;
     text-align: left !important;
   }
   .cargo-itsimple .right-body.align-end {
-    text-align: left;
+    text-align: left !important;
   }
   .cargo-itsimple .right-body .list-box.flex-end {
-    justify-content: flex-start;
+    justify-content: flex-start !important;
   }
   .cargo-itsimple .right-body .slider-box {
-    margin-left: 0;
+    margin-left: 0 !important;
   }
   .cargo-itsimple .slider-box {
-    width: 100%;
-    max-width: 200px;
+    width: 100% !important;
+    max-width: none !important;
   }
   .cargo-itsimple .list-box {
-    margin-bottom: 20px;
+    margin-bottom: 15px !important;
+    justify-content: flex-start !important;
   }
   .cargo-itsimple .cargo-title {
-    font-size: 16px;
-    margin-bottom: 6px;
+    font-size: 14px !important;
+    margin-bottom: 4px !important;
+    text-transform: capitalize !important;
   }
   .cargo-itsimple .sub-title {
-    font-size: 14px;
+    font-size: 11px !important;
+    margin-bottom: 8px !important;
+  }
+  .cargo-itsimple .img-box,
+  .cargo-itsimple .img-right-box {
+    width: 40px !important;
+    height: 40px !important;
+    margin-right: 8px !important;
+  }
+  .cargo-itsimple .img-item {
+    width: 22px !important;
+    height: 22px !important;
+  }
+  .cargo-itsimple .color-item {
+    width: 28px !important;
+    height: 28px !important;
+    margin-right: 10px !important;
   }
   .pixi-mask {
-    display: none;
+    display: none !important;
   }
 }
 
 /* Responsive - Small Mobile */
 @media (max-width: 480px) {
   .cargo-pixi-title {
-    font-size: 22px;
+    font-size: 20px;
     letter-spacing: 3px;
   }
-  .cargo-itsimple .left-body,
-  .cargo-itsimple .right-body {
-    width: 95%;
-    padding: 15px;
+  .cargo-itsimple .mobile-controls-wrapper {
+    padding: 15px !important;
+    gap: 0 15px !important;
   }
   .cargo-itsimple .img-box,
   .cargo-itsimple .img-right-box {
-    width: 42px;
-    height: 42px;
+    width: 36px !important;
+    height: 36px !important;
   }
   .cargo-itsimple .img-item {
-    width: 24px;
-    height: 24px;
+    width: 20px !important;
+    height: 20px !important;
   }
 }
 .cargo-main {
@@ -1391,6 +1415,11 @@ function changeSizeHandle() {
   var canvasBaseWidth = 2400;
   var canvasBaseHeight = 1062;
 
+  // Remove mobile wrapper on desktop/tablet
+  if (width >= 901 && $('.mobile-controls-wrapper').length > 0) {
+    $('.mobile-controls-wrapper').contents().unwrap();
+  }
+
   // Desktop: >= 1230px
   if (width >= 1230) {
     var scale = 0.5;
@@ -1399,7 +1428,8 @@ function changeSizeHandle() {
 
     $('.cargo-itsimple').css({
       'width': '1230px',
-      'height': '744px'
+      'height': '744px',
+      'display': 'block'
     });
     $('#pixi-canvas').css({
       'width': canvasDisplayWidth + 'px',
@@ -1407,23 +1437,31 @@ function changeSizeHandle() {
       'position': 'absolute',
       'left': '50%',
       'top': '120px',
-      'transform': 'translateX(-50%)'
+      'transform': 'translateX(-50%)',
+      'overflow': 'visible',
+      'margin': '0'
     });
     $('#pixi-canvas canvas').css({
       'transform': 'scale(' + scale + ')',
       'transform-origin': 'top left',
       'position': 'static',
-      'left': '0'
+      'left': '0',
+      'top': '0'
     });
     $('.left-body').css({
       'position': 'absolute',
       'top': '212px',
-      'left': '30px'
+      'left': '30px',
+      'width': '',
+      'max-width': ''
     });
     $('.right-body').css({
       'position': 'absolute',
       'top': '212px',
-      'right': '30px'
+      'right': '30px',
+      'left': 'auto',
+      'width': '',
+      'max-width': ''
     });
   }
   // Tablet: 901px - 1229px
@@ -1435,7 +1473,8 @@ function changeSizeHandle() {
 
     $('.cargo-itsimple').css({
       'width': '100%',
-      'height': containerHeight + 'px'
+      'height': containerHeight + 'px',
+      'display': 'block'
     });
     $('#pixi-canvas').css({
       'width': canvasDisplayWidth + 'px',
@@ -1443,51 +1482,61 @@ function changeSizeHandle() {
       'position': 'absolute',
       'left': '50%',
       'top': '100px',
-      'transform': 'translateX(-50%)'
+      'transform': 'translateX(-50%)',
+      'overflow': 'visible',
+      'margin': '0'
     });
     $('#pixi-canvas canvas').css({
       'transform': 'scale(' + scale + ')',
       'transform-origin': 'top left',
       'position': 'static',
-      'left': '0'
+      'left': '0',
+      'top': '0'
     });
     $('.left-body').css({
       'position': 'absolute',
       'top': '180px',
-      'left': '15px'
+      'left': '15px',
+      'width': '',
+      'max-width': ''
     });
     $('.right-body').css({
       'position': 'absolute',
       'top': '180px',
-      'right': '15px'
+      'right': '15px',
+      'left': 'auto',
+      'width': '',
+      'max-width': ''
     });
   }
   // Mobile: <= 900px
   else {
-    // Use a minimum scale to ensure visibility
-    var scale = Math.max((width * 0.95) / canvasBaseWidth, 0.15);
+    // Scale to show bike larger - use 1.3x width to make bike bigger
+    var scale = (width * 1.3) / canvasBaseWidth;
     var canvasDisplayWidth = canvasBaseWidth * scale;
     var canvasDisplayHeight = canvasBaseHeight * scale;
-    // 居中裁剪: 只显示画布中间部分
-    var offsetX = (canvasDisplayWidth - width * 0.95) / 2;
+    // Center the bike - offset to show the bike centered (bike is roughly in middle of canvas)
+    var offsetX = (canvasDisplayWidth - width) / 2;
+    // Vertical offset to crop top/bottom and show bike better
+    var offsetY = canvasDisplayHeight * 0.15;
 
     $('.cargo-itsimple').css({
       'width': '100%',
       'height': 'auto',
-      'display': 'flex',
-      'flex-direction': 'column',
-      'align-items': 'center'
+      'display': 'block'
     });
+
+    // Full width canvas container with clipping
     $('#pixi-canvas').css({
-      'width': (width * 0.95) + 'px',
-      'height': canvasDisplayHeight + 'px',
-      'min-height': '150px',
+      'width': width + 'px',
+      'height': (canvasDisplayHeight * 0.6) + 'px',
+      'min-height': '200px',
       'position': 'relative',
       'left': 'auto',
       'top': 'auto',
       'transform': 'none',
       'overflow': 'hidden',
-      'margin': '0 auto 20px auto',
+      'margin': '0',
       'display': 'block'
     });
     $('#pixi-canvas canvas').css({
@@ -1495,22 +1544,29 @@ function changeSizeHandle() {
       'transform-origin': 'top left',
       'position': 'relative',
       'left': -offsetX + 'px',
+      'top': -offsetY + 'px',
       'display': 'block'
     });
-    // 移动端控制面板由CSS处理，不需要JS定位
+
+    // Create mobile controls wrapper if not exists
+    if ($('.mobile-controls-wrapper').length === 0) {
+      $('.cargo-itsimple .left-body, .cargo-itsimple .right-body').wrapAll('<div class="mobile-controls-wrapper"></div>');
+    }
+
+    // Reset control panel styles - let CSS handle the grid
     $('.left-body').css({
       'position': 'relative',
       'top': 'auto',
       'left': 'auto',
-      'width': '90%',
-      'max-width': '400px'
+      'width': '100%',
+      'max-width': 'none'
     });
     $('.right-body').css({
       'position': 'relative',
       'top': 'auto',
       'right': 'auto',
-      'width': '90%',
-      'max-width': '400px'
+      'width': '100%',
+      'max-width': 'none'
     });
   }
 }
